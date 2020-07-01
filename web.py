@@ -3,16 +3,25 @@ from views import index, blog
 
 URLS = {
     '/': index,
+    '/index': index,
     '/blog': blog
 }
 
 
 # Парсим
 def parsing_request(request):
-    parsed = request.split(' ')
-    method = parsed[0]
-    url = parsed[1]
-    return method, url
+    try:
+        parsed = request.split(' ')
+        method = parsed[0]
+        url = parsed[1]
+        return method, url
+    except IndexError as e:
+        print(e)
+        parsed = request.split(' ')
+        method = parsed[0]
+        url = '/'
+        return method, url
+
 
 
 def gen_headers(method, url):
